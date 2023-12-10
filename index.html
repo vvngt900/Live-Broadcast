@@ -18,14 +18,19 @@
         z-index: -1;
       }
   
-      .header .branding-icon {
-        width: 50px;
-        height: 50px;
+      .branding-icon {
+        width: 45px;
+        height: 60px;
+      }
+
+      #loadingIcon{
+        width: 20px;
+        height: 20px;
       }
   
       .live-broadcast-icon {
-        width: 40px;
-        height: 30px;
+        width: 50px;
+        height: 50px;
         margin-left: 5px;
       }
 
@@ -35,42 +40,47 @@
     <!-- Style -->
   </head>
   <body>
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-light-subtle">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img src="assets/img/routes-logo.png" alt="Logo" width="40" height="50" class="d-inline-block align-text-top">
+          <img src="assets/img/routes-logo.png" alt="Logo" class="d-inline-block align-text-top branding-icon">
         </a>
         
         <button class="btn border-0" type="button" disabled>
-          <span class="spinner-grow spinner-grow-sm text-success" aria-hidden="true"></span> 
-          <span><i class="bi bi-broadcast-pin live-broadcast-icon"></i></span>
+          <span id="loadingIcon" class="spinner-border text-primary" role="status"></span> 
+          <span><i class="bi bi-broadcast-pin live-broadcast-icon"></i> Live</span>
         </button>
       </div>
     </nav>
 
     <div id="iframe-container">
-    <iframe id="myIframe" src="https://www.youtube.com/embed/VngppzRMxwA?si=5iZ9AsVuL7iCmAuu&amp?autoplay=1&loop=1&controls=0&playsinline=1&modestbranding=1&enablejsapi=1" frameborder="0" allowfullscreen></iframe>
+    <iframe id="myIframe" src="https://www.youtube.com/embed/2rWhbC0zJes?si=5iZ9AsVuL7iCmAuu&amp?autoplay=1&loop=1&controls=0&playsinline=1&modestbranding=1&enablejsapi=1" frameborder="0" allowfullscreen></iframe>
     </div>
 
-    <nav class="navbar fixed-bottom bg-body-tertiary">
-      <div class="container-fluid">
-        <h2>Routes Broadcast</h1>
+    <nav class="navbar fixed-bottom bg-light-subtle">
+      <div class="container-fluid p-4">
+          <h2>Routes Broadcast</h2>
         <p>Routes is introducing live broadcasting for taxi passengers creating an immersive travel experience. The best part for passengers lies in real-time engagement during their journey. Users can tune into live broadcasts showcasing local insights, events, or even interactive sessions. This feature transforms commuting into a dynamic, informative, and entertaining adventure. Passengers gain access to destination highlights, cultural snippets, or travel tips shared by hosts. It fosters connectivity, making each ride more than just a commute, turning it into an opportunity for discovery and connection with the surroundings.</p>
+        <!-- <button type="button" class="btn btn-primary" onclick="player.playVideo()">Play Video</button> -->
       </div>
     </nav>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script>
+      const loadingIcon = document.getElementById('loadingIcon');
       let player;
       window.addEventListener('load', () => {
         player = new YT.Player('myIframe');
+
         player.addEventListener('onReady', () => {
           setTimeout(()=>{
             console.log("video requested to play!!");
+            loadingIcon.classList.remove('spinner-border', 'text-primary');
+            loadingIcon.classList.add('spinner-grow', 'spinner-grow-sm', 'text-success');
             player.playVideo();
-          },500);
+          },7500);
         });
-      });
+      }); 
     </script>
   </body>
 </html>
